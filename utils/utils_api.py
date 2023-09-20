@@ -134,8 +134,14 @@ async def get_latest_block_id() -> int:
     return int(r["data"]["wcBlocks"][0]["seqno"])
 
 
-def filter_tx(txs: [tx]) -> [tx]:
+# def filter_tx(txs: [tx]) -> [tx]:
+#     # print(f"before filter, the total tx is {len(txs)}")
+#     filtered_tx_list = list(filter(lambda tx: tx["amount"] >= VALUE_UPPER_LIMIT, txs))
+#     # print(f"after filter, the total tx is {len(filtered_tx_list)}")
+#     return filtered_tx_list
+def filterTX(txs: [tx], filterAmount: int) -> [tx]:
     # print(f"before filter, the total tx is {len(txs)}")
-    filtered_tx_list = list(filter(lambda tx: tx["amount"] >= VALUE_UPPER_LIMIT, txs))
+    print(txs)
+    filtered_tx_list = list(filter(lambda tx: tx["Amount"] >= filterAmount, txs))
     # print(f"after filter, the total tx is {len(filtered_tx_list)}")
     return filtered_tx_list

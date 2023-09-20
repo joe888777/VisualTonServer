@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 import createHtml
+from utils.utils_api import filterTX
+
 app = FastAPI()
 
 origins = ['*']
@@ -14,11 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/nodes/")
-async def getImg():
-    html,data = createHtml.html_to_text()
-    a = {"html":html,"full_address":data}
-    print(html)
+@app.get("/filteredNodes/")
+async def getFilteredNodes(amount: int):
+    data = createHtml.html_to_text()
+    a = filterTX(data, amount)
     return a
 
 @app.get("/graph/")
