@@ -77,3 +77,22 @@ def get_table_data(conn) -> [tx]:
 
     except Exception as e:
         print(f"Error fetching data: {str(e)}")
+
+def get_addr_data_as_dict(conn):
+    cursor = conn.cursor()
+    select_query = "SELECT * FROM addresses"
+    cursor.execute(select_query)
+    rows = cursor.fetchall()
+
+    addr_data_dict = {}
+    for row in rows:
+        addr = row[1]
+        name = row[0]
+        addr_type = row[2]
+        url = row[3]
+
+        addr_info = {"name": name, "type": addr_type, "url": url}
+
+        addr_data_dict[addr] = addr_info
+
+    return addr_data_dict

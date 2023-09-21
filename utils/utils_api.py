@@ -141,7 +141,7 @@ async def get_latest_block_id() -> int:
 #     return filtered_tx_list
 def filterTX(txs: [tx], filterAmount: int) -> [tx]:
     # print(f"before filter, the total tx is {len(txs)}")
-    print(txs)
+    # print(txs)
     filtered_tx_list = list(filter(lambda tx: tx["Amount"] >= filterAmount, txs))
     # print(f"after filter, the total tx is {len(filtered_tx_list)}")
     return filtered_tx_list
