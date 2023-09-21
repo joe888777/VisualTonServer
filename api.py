@@ -20,7 +20,7 @@ app.add_middleware(
 
 @app.get("/filteredNodes/")
 async def getFilteredNodes(amount: int):
-    data = ShortData()
+    data = getData()
     a = filterTX(data, amount)
     return a
 
