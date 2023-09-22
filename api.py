@@ -24,6 +24,10 @@ async def getFilteredNodes(amount: int):
     a = filterTX(data, amount)
     return a
 
+@app.get("/full_tx_data/")
+async def get_full_tx_data():
+    return getData()
+
 @app.get("/graph/")
 async def getGraph():
     html = ShortData()
