@@ -12,10 +12,11 @@ chat_id = "-1001841995638"
 
 # Real-Time tx info
 # while True:
-api_url = "http://si8a1.asuscomm.com:8000/filteredNodes/?amount=100"
+api_url = "http://104.199.221.66:8080/filteredNodes/?amount=100"
 res = requests.get(api_url)
 
 if res.status_code == 200:
+    print("success")
     transaction_data = res.json()
     notifications = []
 
@@ -50,13 +51,13 @@ if res.status_code == 200:
     # Send the message to the Telegram channel
         url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
         print(len(notifications))
-        # response = requests.post(url, json=message)
+        response = requests.post(url, json=message)
             
-        # if response.status_code == 200:
-        #         print('Message successfully sent to the Telegram channel!')
-        # else:
-        #         print('Message sending failed. Status code:', response.status_code)
-        #         print('Error message:', response.text)
+        if response.status_code == 200:
+                print('Message successfully sent to the Telegram channel!')
+        else:
+                print('Message sending failed. Status code:', response.status_code)
+                print('Error message:', response.text)
 else:
     print('API request failed. Status code:', res.status_code)
     # time.sleep(60)

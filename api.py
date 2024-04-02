@@ -2,13 +2,13 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse,JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import createHtml
-from utils.utils_api import filterTX 
+# from utils.utils_api import filterTX 
 from getData import *
 
 
 app = FastAPI()
 
-origins = ['http://localhost:3000', 'https://localhost:3000','*']
+origins = ['http://localhost:5173', 'https://localhost:5173','*']
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,8 +21,17 @@ app.add_middleware(
 @app.get("/filteredNodes/")
 async def getFilteredNodes(amount: int):
     data = getData()
-    a = filterTX(data, amount)
-    return a
+    for tx in data:
+        tx["Raw_data"] = ""
+    # a = filterTX(data, amount)
+    # for tx in data:
+    #     if tx["Type"] == "Jetton":
+    #         data.remove(tx)
+    return data
+
+@app.get("/full_tx_data/")
+async def get_full_tx_data():
+    return getData()
 
 @app.get("/full_tx_data/")
 async def get_full_tx_data():
@@ -48,3 +57,12 @@ from getData import getAddressTable
 @app.get("/node_info/")
 async def AddressTable():
     return getAddressTable()
+
+
+@app.get("/jetton/")
+async def readJetton():
+    return getJettonData()
+
+@app.get("/nft/")
+async def readNft():
+    return getNftData()
